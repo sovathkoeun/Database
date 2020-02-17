@@ -1,0 +1,64 @@
+//======================
+SELECT pid as " Product Id",pname as "Product Name" , catname AS "Category Name"
+ FROM product 
+INNER JOIN  category 
+on product.catid = category.catid;
+
+SELECT 
+p.pid,p.pname,c.catname
+FROM product p
+INNER JOIN category c
+ON  p.catid = c.catid;
+
+//================================
+
+SELECT c.catname AS "Category Name",
+COUNT(p.pid) AS "Number of Product"
+FROM product p
+INNER JOIN category c ON p.catid = c.catid
+GROUP BY c.catid;
+
+//==============================
+
+SELECT p.pname AS "Product Name",
+l.locationname AS "Location of Product" FROM product p
+INNER JOIN store s ON p.storeid = s.storeid
+INNER JOIN location l ON s.locationid = l.locationid;
+
+//==========================
+
+SELECT p.pname AS "Product Name",
+storename AS "Store Name",
+l.locationname AS "Location of Product" FROM product p
+INNER JOIN store s ON p.storeid = s.storeid
+INNER JOIN location l ON s.locationid = l.locationid
+WHERE quantity<5;
+
+//=========================
+
+SELECT s.seller AS "Seller Name", p.pname AS "product"
+FROM sales s
+LEFT JOIN product p
+ON s.salesid = p.pid
+
+//========================
+
+SELECT p.pname AS "product Name" ,
+SUM(s.quantity) AS "quantity"
+FROM Product p
+INNER JOIN sales s
+ON s.pid = p.pid
+GROUP BY s.pid
+ORDER BY SUM(s.quantity) DESC LIMIT 1;
+
+//========================
+
+SELECT p.pname AS "product Name" ,
+SUM(s.quantity) AS "quantity"
+FROM Product p
+INNER JOIN sales s
+ON s.pid = p.pid
+GROUP BY s.pid
+ORDER BY SUM(s.quantity) ASC LIMIT 1;
+
+
